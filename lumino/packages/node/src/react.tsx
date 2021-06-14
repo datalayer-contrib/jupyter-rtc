@@ -1,12 +1,10 @@
 /**
  * React hooks and components that build on top of the functions exposed in `./helpers`.
  *
- *
  * It assumes a global datastore for some React sub-tree, set by a node that sets a context.
  * This is implicility passed down to all sub-components, to make it less verbose to get and set data.
  *
  * However, it doesn't put the schemas on a context, because we need to refer to them for typing purpose
- *
  *
  * It also makes these assumptions about React best practices:
  *
@@ -20,7 +18,6 @@ import { Datastore, Record, Schema, Table } from "@lumino/datastore";
 import { useObservableState } from "observable-hooks";
 import React from "react";
 import { Observable } from "rxjs";
-
 import {
   createRecord,
   ids,
@@ -35,6 +32,7 @@ import {
 import { ObservableWithInitial } from "./ObservableWithInitial";
 
 const DatastoreContext = React.createContext<null | Datastore>(null);
+
 /**
  * Sets the global datastore context. Either pass in an existing datastore
  * or args to create a new one.

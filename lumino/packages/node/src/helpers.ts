@@ -86,7 +86,6 @@ export function ids(
   schema: Schema
 ): ObservableWithInitial<Array<string>> {
   const getIds = (): Array<string> => [...getIdsGenerator(datastore, schema)];
-
   return [
     getIds,
     changes(datastore, schema).pipe(
@@ -106,7 +105,6 @@ export function records<SCHEMA extends Schema>(
 ): ObservableWithInitial<Array<Record<SCHEMA>>> {
   const getRecords = (): Array<Record<SCHEMA>> =>
     toArray(datastore.get(schema));
-
   return [getRecords, changes(datastore, schema).pipe(map(getRecords))];
 }
 
@@ -161,7 +159,6 @@ export function updateRecords<SCHEMA extends Schema>(
   update: Table.Update<SCHEMA>
 ): void {
   const alreadyInTransction = datastore.inTransaction;
-
   if (!alreadyInTransction) {
     datastore.beginTransaction();
   }
@@ -258,7 +255,10 @@ function changes<SCHEMA extends Schema>(
   schema: SCHEMA
 ): Observable<Table.Change<SCHEMA>> {
   return datastoreChanges(datastore).pipe(
-    map((changedArgs) => changedArgs.change[schema.id]),
+    map((changedArgs) => {
+      console.log('---', changedArgs);
+      return changedArgs.change[schema.id]
+    }),
     filter((change) => change !== undefined)
   );
 }

@@ -20,7 +20,7 @@ const schemas = createSchemas({
   },
 });
 
-const datastore = connect({
+const datastore$ = connect({
   schemas: Object.values(schemas),
   id: Math.random(),
   url: "ws://localhost:8888",
@@ -28,7 +28,7 @@ const datastore = connect({
 
 const Todo: React.FC = () => {
   return (
-    <DatastoreRoot datastore={datastore}>
+    <DatastoreRoot datastore={datastore$}>
       <div>
         <h1>TODO</h1>
         <List />
@@ -53,7 +53,6 @@ const Add: React.FC = () => {
     },
     [createTodo, inputEl]
   );
-
   return (
     <form onSubmit={onSubmit}>
       <label>
@@ -85,7 +84,6 @@ const Row: React.FC<{ id: string }> = ({ id }) => {
     },
     [setRecord]
   );
-
   if (!show) {
     return <></>;
   }
